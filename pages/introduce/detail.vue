@@ -54,7 +54,15 @@
 					景区讲解
 				</view>
 				<view class="right voicebox">
-					<image src="../../static/scenic/mic.png" mode="" class="mic"></image>
+					<image src="../../static/scenic/mic.png" mode="" class="mic left"></image>
+					
+					
+					<view class="jbox left">
+						<x-adudio-play v-if="url" :url='url' startImg="../../static/zanting.png" endImg="../../static/bofang.png"></x-adudio-play>
+					</view>
+					<span class="left jiangtitle">
+						{{detail.audio.old_name}}
+					</span>
 				</view>
 			</view>
 			<view class="title">
@@ -73,8 +81,11 @@
 </template>
 
 <script>
+	import xAdudioPlay from '@/components/x-audio-play/x-audio-play.vue'
 	export default {
+		components: {xAdudioPlay},
 		data() {
+			
 			return {
 				bgimg: '../../static/scenic/gou.jpeg',
 				geshou: '林俊杰',
@@ -85,12 +96,16 @@
 				},
 				current: 0,
 				article_id: 0,
-				mp3:{}
+				mp3:{},
+				url:''
 			};
 		},
 		onLoad(option) {
 			this.article_id = option.article_id;
 			this.getList();
+		},
+		onHide() {
+			 uni.$emit('stop')
 		},
 		methods: {
 
@@ -106,6 +121,7 @@
 				}).then(res => {
 					this.detail = res.detail;
 					this.mp3 = res.mp3;
+					this.url=res.detail.audio.file_path
 				})
 
 			},
@@ -314,5 +330,14 @@
 		color: #FFFFFF;
 		font-size: 30rpx;
 		font-weight: bold;
+	}
+	.jbox{
+		height: 100%;
+	}
+	.jiangtitle{
+		width: 350rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>

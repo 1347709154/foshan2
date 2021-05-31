@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		
 		<view class="bgimg">
 			<image src="../../static/scenic/jiantou.png" mode="" class="img1" @tap="back"></image>
 			<!-- <image :src="bgimg" mode="" class="img2"></image> -->
@@ -12,10 +13,15 @@
 				</swiper>
 
 			</view>
+			<view class="">
+				
+			</view>
+			
 			<view class="musiclist">
 				<image src="../../static/scenic/music.png" mode="" class="left music"></image>
 				<view class="left keywords">
 					<span>{{mp3.title}}</span>
+					
 				</view>
 				<view class="listbtn right" @tap="golist">
 					列表
@@ -46,6 +52,7 @@
 						<view class="">
 							分享
 						</view>
+						
 					</view>
 				</view>
 			</view>
@@ -54,7 +61,16 @@
 					景区讲解
 				</view>
 				<view class="right voicebox">
-					<image src="../../static/scenic/mic.png" mode="" class="mic"></image>
+					<image src="../../static/scenic/mic.png" mode="" class="mic left"></image>
+
+					
+					<view class="jbox left">
+						<x-adudio-play v-if="url" :url='url' startImg="../../static/zanting.png" endImg="../../static/bofang.png"></x-adudio-play>
+					</view>
+					<span class="left jiangtitle">
+						{{detail.audio.old_name}}
+					</span>
+					<!-- <audio class="left" src="https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3"  :controls="true"></audio> -->
 				</view>
 			</view>
 			<view class="title">
@@ -73,7 +89,9 @@
 </template>
 
 <script>
+	import xAdudioPlay from '@/components/x-audio-play/x-audio-play.vue'
 	export default {
+		 components: {xAdudioPlay},
 		data() {
 			return {
 				bgimg: '../../static/scenic/gou.jpeg',
@@ -83,13 +101,21 @@
 				},
 				mp3:{},
 				current: 0,
+				mp3path:'',
+				playstatus:false,
+				url:''
 			};
 		},
 		onLoad() {
+			
+		},
+		onReady() {
 			this.getList();
 		},
+		onHide() {
+			 uni.$emit('stop')
+		},
 		methods: {
-
 			back() {
 				uni.navigateBack({
 					delta: 1
@@ -102,9 +128,14 @@
 				}).then(res => {
 					this.detail = res.detail;
 					this.mp3 = res.mp3;
+					this.url=res.detail.audio.file_path
+					// console.log(this.detail.audio.file_path)
 				})
 
 			},
+			
+			// 景区讲解
+			
 			Collect: function() {
 				this.$requests('user/collect', {
 					article_id: 1,
@@ -127,7 +158,7 @@
 				uni.navigateTo({
 					url: "/pages/guide-pre/pre?type=scenic"
 				})
-			}
+			},
 		}
 	}
 </script>
@@ -266,8 +297,11 @@
 			margin-top: 15rpx;
 			margin-left: 19rpx;
 		}
+		
 	}
-
+.jbox{
+			height: 100%;
+		}
 	.title {
 		width: 663rpx;
 		margin: auto;
@@ -294,7 +328,9 @@
 		margin-top: 27rpx;
 		border-radius: 16px;
 	}
-
+	.playbtn{
+		margin-left: 25rpx;
+	}
 	.yd {
 		width: 100%;
 		height: 100rpx;
@@ -308,5 +344,17 @@
 		color: #FFFFFF;
 		font-size: 30rpx;
 		font-weight: bold;
+	}
+	.jiangtitle{
+		// margin-left: 20rpx;
+	}
+	.jbox{
+		height: 100%;
+	}
+	.jiangtitle{
+		width: 350rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>

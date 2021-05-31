@@ -1,0 +1,12 @@
+{
+    "id": "chengpeng-audio",
+    "name": "音频播放器",
+    "version": "2.0.0",
+    "description": "音频播放器组件，支持跳转进度",
+    "keywords": [
+        "音频播放器",
+        "audio",
+        "音乐",
+        "跳转"
+    ]
+}

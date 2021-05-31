@@ -22,7 +22,11 @@
 			</u-cell-item>
 			<u-field type="text" v-model="userInfo.autograph" label="签名" placeholder="请输入您的签名"></u-field>
 		</view>
-		<view class="bt" @click="submit">保存</view>
+		<view class="bt">
+			<u-button  @click="submit" type="success">保存</u-button>
+		</view>
+		
+		<!-- <view class="bt" @click="submit">保存</view> -->
 	</view>
 </template>
 

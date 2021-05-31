@@ -21,8 +21,12 @@
 		</view>
 
 		<u-picker mode="region" ref="uPicker" :params="params" @confirm="confirm" v-model="show" />
-		<view class="bt1" @click="deAddr">删除</view>
-		<view class="bt" @click="submit">保存</view>
+		<view class="bt1">
+			<u-button  @click="deAddr" type="error">删除</u-button>
+		</view>
+		<view class="bt" >
+			<u-button  @click="submit" type="success">保存</u-button>
+		</view>
 	</view>
 </template>
 
