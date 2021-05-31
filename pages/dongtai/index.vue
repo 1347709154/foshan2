@@ -54,7 +54,7 @@
 							<u-icon name="star-fill" color="#fb8d44" size="50" v-if="items.is_collect"></u-icon>
 							<u-icon name="star" color="#888888" size="50" v-else></u-icon>
 						</view>
-						<view class="caozuolist">
+						<view class="caozuolist" @click="fenxiang">
 							<u-icon name="share-fill" color="#888888" size="50" class="left"></u-icon>
 						</view>
 					</view>
@@ -81,7 +81,7 @@
 
 		</view>
 		<view class="end-cont" :class="{dis:btnnum == 1}">
-			<view class="msglist" v-for="(items,index) in list1.data" @click="details(items.moments_id)">
+			<view class="msglist" v-for="(items,index) in list1.data" >
 				<view class="avt">
 					<view class="left tou">
 						<u-avatar :size="73" :src="items.avatarUrl"></u-avatar>
@@ -104,24 +104,28 @@
 							{{items.address}}
 						</view>
 					</view>
-					<view class="title" >
+					<view class="title" @click="details(items.moments_id)">
 						{{items.content}}
 					</view>
 					<view class="flexoarea">
 						<!-- 这里要判断用户是否已经点赞或收藏 -->
 						<view class="caozuolist" @click="Give(items.moments_id)">
-							<image v-if="items.is_give" src="../../static/dongtai/xin1.png" mode="" class="left">
-								<image v-else src="../../static/dongtai/xin.png" mode="" class="left"></image>
+							<u-icon name="heart-fill" color="#fb8d44" size="50" v-if="items.is_give" class="left"></u-icon>
+							<u-icon name="heart" color="#888888" size="50" v-else class="left"></u-icon>
+							<!-- <image v-if="items.is_give" src="../../static/dongtai/xin1.png" mode="" class="left">
+							<image v-else src="../../static/dongtai/xin.png" mode="" class="left"></image> -->
 								<view class="count left">
 									{{items.give}}
 								</view>
 						</view>
 						<view class="caozuolist" @click="Collect(items.moments_id)">
-							<image v-if="items.is_collect" src="../../static/user/shoucang.png" mode="" >
-							<image  v-else src="../../static/dongtai/xx.png" mode=""></image>
+							<u-icon name="star-fill" color="#fb8d44" size="50" v-if="items.is_collect"></u-icon>
+							<u-icon name="star" color="#888888" size="50" v-else></u-icon>
+							<!-- <image v-if="items.is_collect" src="../../static/user/shoucang.png" mode="" >
+							<image  v-else src="../../static/dongtai/xx.png" mode=""></image> -->
 						</view>
-						<view class="caozuolist">
-							<image src="../../static/dongtai/zhuangfa.png" mode=""></image>
+						<view class="caozuolist" @click="fenxiang">
+							<u-icon name="share-fill" color="#888888" size="50" class="left"></u-icon>
 						</view>
 					</view>
 					<!-- 需要判断是否已经有评论 -->
@@ -144,6 +148,11 @@
 					</view>
 				</view>
 			</view>
+		</view>
+		<!-- 拨打电话 -->
+		<view class="phone" @click="Phone()">
+			<image src="../../static/user/phone.png" mode="aspectFit"></image>
+			<view>客服热线</view>
 		</view>
 	</view>
 </template>
@@ -226,6 +235,25 @@
 					}, 1000)
 				})
 			
+			},
+			Phone() {
+				uni.makePhoneCall({
+					phoneNumber: '19358666237' //仅为示例
+				});
+			},
+			fenxiang:function(){
+				uni.showModal({
+				    title: '提示',
+				    content: '请点击右上角分享',
+					showCancel:false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
 			}
 		}
 	}
@@ -475,5 +503,31 @@
 	.uni-input-placeholder {
 		color: #848383;
 		font-size: 12px;
+	}
+	.phone {
+		position: fixed;
+		z-index: 99;
+		top: 780rpx;
+		right: 32rpx;
+		width: 140rpx;
+		height: 170rpx;
+		/* border: 1rpx solid #80D981; */
+		border-radius: 60rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+	}
+	
+	.phone>image {
+		width: 100rpx;
+		height: 80rpx;
+	}
+	
+	.phone>view {
+		color: #80D981;
+		font-size: 28rpx;
+		margin-top: 10rpx;
 	}
 </style>

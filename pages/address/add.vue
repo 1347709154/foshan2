@@ -3,25 +3,25 @@
 		<view class="top">
 			<view class="item">
 				<view class="left">收货人</view>
-				<input type="text" v-model="name" placeholder-class="line" placeholder="请填写收货人姓名" />
+				<input type="text" v-model="name" placeholder-class="line" placeholder="请填写收货人姓名" adjust-position="false" />
 			</view>
 			<view class="item">
 				<view class="left">手机号码</view>
-				<input type="text" v-model="phone" placeholder-class="line" placeholder="请填写收货人手机号" />
+				<input type="text" v-model="phone" placeholder-class="line" placeholder="请填写收货人手机号"  adjust-position="false"/>
 			</view>
 			<view class="item" @tap="showRegionPicker">
 				<view class="left">所在地区</view>
-				<input disabled type="text" placeholder-class="line" placeholder="省市区县、乡镇等" v-model="region" />
+				<input disabled type="text" placeholder-class="line" placeholder="省市区县、乡镇等" v-model="region" adjust-position="false"/>
 			</view>
 			<view class="item address">
 				<view class="left">详细地址</view>
-				<textarea type="text" v-model="address" placeholder-class="line" placeholder="街道、楼牌等" />
+				<textarea type="text" v-model="address" placeholder-class="line" placeholder="街道、楼牌等" adjust-position="false" />
 			</view>
 
 		</view>
 	
 		<u-picker mode="region" ref="uPicker" :params="params" @confirm="confirm" v-model="show" />
-		<view class="bt" @click="submit">保存</view>
+		<u-button type="success" class="bt" @click="submit">保存</u-button>
 	</view>
 </template>
 
@@ -110,8 +110,7 @@
 
 	.bt {
 
-		position: absolute;
-		bottom: 360rpx;
+		margin-top: 150rpx;
 		background: #07C160;
 		color: #ffffff;
 		text-align: center;
@@ -124,7 +123,7 @@
 
 	.wrap {
 
-		background-color: #f2f2f2;
+		// background-color: #f2f2f2;
 
 		.top {
 			background-color: #ffffff;

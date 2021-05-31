@@ -19,7 +19,8 @@
 					选择数量
 				</view>
 				<view class="right countnum">
-					<u-number-box v-model="value" @change="valChange"></u-number-box>
+					{{value}}
+					<!-- <u-number-box v-model="value" @change="valChange"></u-number-box> -->
 				</view>
 			</view>
 			<!-- 		<p id="copn">优惠</p>
@@ -38,30 +39,35 @@
 		<view class="tourist">
 			<p id="tourist">游客信息</p>
 			<view class="touristbox">
-				<view :class="[item.isflag==true?'listitem':'listitem2']" v-for="(item,index) in touristlist"
-					@tap="change2(index),getinfo(index)">
-					<p>{{item.name}}</p>
-					<view class="redbox">
-						<image src="../../static/order/yes.png" mode="" class="yes"></image>
+				<view class="">
+					
+					<view :class="[item.isflag==true?'listitem':'listitem2']" v-for="(item,index) in touristlist"
+						@tap="change2(index),getinfo(index)">
+						<p>{{item.name}}</p>
+						<view class="redbox">
+							<image src="../../static/order/yes.png" mode="" class="yes"></image>
+						</view>
 					</view>
 				</view>
+				
 				<view class="listitem3" @click="addUser">
 					<p>新增</p>
 					<p>更换</p>
 				</view>
 			</view>
-			<view class="bottombox">
-				<view class="left headimg" v-if="">
+			<view class="bottombox" v-for="(it,ind) in touristlist " v-if="it.isflag==true">
+				<view class="left headimg" @click="">
 					<p>游客</p>
-					<image src="../../static/order/cha.png" mode="" id="headming"></image>
+					<!-- <image src="../../static/order/cha.png" mode="" id="headming"></image> -->
+					<!-- <u-icon name="close-circle" color="#EF1E22" size="58"></u-icon> -->
 				</view>
 				<view class="left touristinfo">
-					<p class="infotext">{{touristinfo.name}}</p>
-					<p class="infotext">{{touristinfo.phone}}</p>
-					<p v-if="touristinfo.id_card==''" id="noidmun">缺少证件号，点击补齐</p>
-					<p class="infotext" v-else>{{touristinfo.id_card}}</p>
-				</view>
-				<view class="right editbtn">
+					<p class="infotext">{{it.name}}</p>
+					<p class="infotext">{{it.phone}}</p>
+					<p v-if="[it.idnum=='']" id="noidmun">缺少证件号，点击补齐</p>
+					<p class="infotext" v-else>{{it.idnum}}</p>
+				</view >
+				<view class="right editbtn" @click="addUser">
 					编辑
 				</view>
 			</view>
@@ -99,7 +105,7 @@
 				<p><span>总价¥</span><span>{{total_price}}</span></p>
 			</view>
 			<view class="right btns">
-				<view class="btn-b left">
+				<view class="btn-b left" @click="fenxiang">
 
 					分享
 
@@ -263,7 +269,20 @@
 
 			},
 
-
+			fenxiang:function(){
+				uni.showModal({
+				    title: '提示',
+				    content: '请点击右上角分享',
+					showCancel:false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+			},
 
 
 
@@ -286,10 +305,30 @@
 				this.time = this.datelist[i].data
 			},
 			change2(i) {
-				for (var j = 0; j < this.touristlist.length; j++) {
-					this.$set(this.touristlist[j], 'isflag', false)
+				// for (var j = 0; j < this.touristlist.length; j++) {
+				// 	this.$set(this.touristlist[j], 'isflag', false)
+				// }
+				// this.$set(this.touristlist[i], 'isflag', true)
+				// this.yid = this.touristlist[i].tourist_id
+				if(this.touristlist[i].isflag==true){
+					this.$set(this.touristlist[i], 'isflag', false)
+					let num = this.value;
+					 num=num-1;
+					this.total_price = num * this.orderInfo.price
+					this.value = num
+				}else{
+					this.$set(this.touristlist[i], 'isflag', true);
+					let num = 0;
+					for(var j=0;j<this.touristlist.length;j++){
+						console.log(11111)
+						if(this.touristlist[j].isflag==true){
+						  num=num+1;
+						}
+					}
+					this.value = num
+					this.total_price = num * this.orderInfo.price
 				}
-				this.$set(this.touristlist[i], 'isflag', true)
+				
 				this.yid = this.touristlist[i].tourist_id
 			},
 			// 获取用户信息
@@ -458,7 +497,13 @@
 
 		// padding-left: 20rpx;
 	}
-
+	.countnum{
+		background: #e1e1e1;
+		width: 150rpx;
+		padding: 5rpx 15rpx;
+		border-radius: 15rpx;
+		text-align: center;
+	}
 	.cponlist {
 		width: 694rpx;
 		height: 70rpx;
@@ -496,7 +541,7 @@
 
 	.tourist {
 		width: 717rpx;
-		height: 352rpx;
+		// height: 352rpx;
 		margin: auto;
 		margin-top: 9rpx;
 		background: #FFFFFF;
@@ -512,14 +557,17 @@
 
 	.touristbox {
 		font-size: 24rpx;
-		height: 67rpx;
+		// height: 67rpx;
 		width: 100%;
 		padding: 0 20rpx;
 		display: flex;
 		margin-top: 14rpx;
+		margin-bottom: 20rpx;
+		
 	}
 
 	.listitem {
+		float: left;
 		width: 146rpx;
 		height: 67rpx;
 		background: #FDE4E4;
@@ -549,6 +597,7 @@
 	}
 
 	.listitem2 {
+		float: left;
 		width: 146rpx;
 		height: 67rpx;
 		background: #FFFFFF;
@@ -581,23 +630,29 @@
 		width: 681rpx;
 		margin: auto;
 		border-top: 1px solid #e5e5e5;
-		margin-top: 30rpx;
+		// margin-top: 30rpx;
 	}
-
+	// .bottombox>view{
+	// 	display: flex;
+	// 	flex-direction: column;
+	// }
 	.headimg {
 		width: 60rpx;
 		height: 180rpx;
 		// line-height: 180rpx;
 		text-align: center;
-		margin-left: 28rpx;
-		padding-top: 60rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		// margin-left: 28rpx;
+		// padding-top: 60rpx;
 		font-size: 24rpx;
 
 	}
 
 	#headming {
-		width: 24rpx;
-		height: 23rpx;
+		width: 35rpx;
+		height: 35rpx;
 	}
 
 	.editbtn {

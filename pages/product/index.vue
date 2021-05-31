@@ -2,10 +2,9 @@
 	<view class="content">
 		<!-- 搜索 -->
 		<view class="searchbox">
-			<view class="left input">
-				<u-input v-model="value" class="search left" height="62" input-align="center" placeholder="搜索" confirm-type="search"
-				 @confirm="search" />
-				<image src="../../static/scenic/search.png" mode="" class="right srarchicon"></image>
+			<view class="search-inp">
+				<input placeholder="请输入志愿者关键字" confirm-type="search" @input="inputvalue"  @confirm="search"/>
+				<image src="../../static/scenic/search.png" mode=""  @click="search"></image>
 			</view>
 			<view class="right filtrate" @click="show = true">
 				<view class="left text">
@@ -31,7 +30,7 @@
 			<view class="list" v-for="(item,index) in list" @click="details(item.goods_id)">
 				<image :src="item.image[0].file_path" mode="aspectFill"></image>
 				<view class="list-name">
-					<view>{{item.goods_name}}</view>
+					<view style="width: 80%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{item.goods_name}}</view>
 					<view style="color: #FF0000;font-weight: bold;">{{item.goods_price}}</view>
 				</view>
 			</view>
@@ -73,8 +72,12 @@
 				})
 			
 			},
+			inputvalue:function(e){
+				
+				this.key =e.detail.value;
+			},
 			search() {
-				this.key=this.value;
+				// this.key=this.value;
 				this.getList()
 			},
 			//切换排序
@@ -105,6 +108,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		
 	}
 	/* 搜索 */
 /* 	.search{
@@ -158,11 +162,37 @@
 		color: #007AFF;
 	} */
 	.searchbox {
-		height: 62rpx;
-		margin-top: 17rpx;
+		height: 80rpx;
 		width: 100%;
+		display: flex;
+		flex-direction: row;
+		background: #FFFFFF;
 	}
-	
+	.search-inp{
+		width: 80%;
+		height: 60rpx;
+		margin-left:32rpx;
+		background-color: rgb(242, 242, 242);
+		// background-color: #FFFFFF;
+		border-radius: 5px;
+		margin-right: 15rpx;
+		position: relative;
+	}
+	.search-inp>input{
+		width: 60%;
+		height: 60rpx;
+		line-height: 60rpx;
+		padding-left: 10rpx;
+		font-size: 28rpx;
+		
+	}
+	.search-inp>image{
+		width: 35rpx;
+		height: 35rpx;
+		position: relative;
+		left: 90%;
+		top: -45rpx;
+	}
 	.input {
 		width: 579rpx;
 		height: 62rpx;
@@ -265,6 +295,7 @@
 		align-items: flex-start;
 	}
 	.list-name>view{
+		
 		font-size: 30rpx;
 	}
 	.null{

@@ -3,7 +3,7 @@
 		<view class="top">
 			<view class="item">
 				<view class="left">收货人</view>
-				<input type="text" v-model="addr.name" placeholder-class="line" placeholder="请填写收货人姓名" />
+				<input type="text" v-model="addr.name" placeholder-class="line" placeholder="请填写收货人姓名"  adjust-position="false"/>
 			</view>
 			<view class="item">
 				<view class="left">手机号码</view>
@@ -21,8 +21,10 @@
 		</view>
 
 		<u-picker mode="region" ref="uPicker" :params="params" @confirm="confirm" v-model="show" />
-		<view class="bt1" @click="deAddr">删除</view>
-		<view class="bt" @click="submit">保存</view>
+		<u-button type="error" class="bt1" @click="deAddr">删除</u-button>
+		<u-button type="success" class="bt" @click="submit">保存</u-button>
+		<!-- <view class="bt1" @click="deAddr">删除</view>
+		<view class="bt" @click="submit">保存</view> -->
 	</view>
 </template>
 
@@ -128,8 +130,7 @@
 
 	.bt {
 
-		position: absolute;
-		bottom: 360rpx;
+		margin-top: 50rpx;
 		background: #07C160;
 		color: #ffffff;
 		text-align: center;
@@ -142,8 +143,9 @@
 
 	.bt1 {
 
-		position: absolute;
-		bottom: 200rpx;
+		// position: absolute;
+		// bottom: 200rpx;
+		margin-top: 200rpx;
 		background: #ea0000;
 		color: #ffffff;
 		text-align: center;
@@ -156,7 +158,7 @@
 
 	.wrap {
 
-		background-color: #f2f2f2;
+		// background-color: #f2f2f2;
 
 		.top {
 			background-color: #ffffff;

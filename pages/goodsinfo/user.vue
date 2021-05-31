@@ -7,7 +7,9 @@
 
 
 		</view>
-		<view class="bt" @click="submit()">保存</view>
+		<u-button type="success" class="bt" @click="submit()">保存</u-button>
+		<u-button type="error" class="bt1" @click="deAddr">删除</u-button>
+		<!-- <view class="bt" @click="submit()">保存</view> -->
 	</view>
 </template>
 
@@ -126,8 +128,7 @@
 	}
 
 	.bt {
-		position: absolute;
-		bottom: 50%;
+		margin-top: 300rpx;
 		background: #07C160;
 		color: #ffffff;
 		text-align: center;
@@ -135,5 +136,16 @@
 		line-height: 80rpx;
 		width: 80%;
 		border-radius: 40rpx;
+	}
+	.bt1 {
+		margin-top: 30rpx;
+		background: #ea0000;
+		color: #ffffff;
+		text-align: center;
+		height: 80rpx;
+		line-height: 80rpx;
+		width: 80%;
+		border-radius: 40rpx;
+		margin-left: 10%;
 	}
 </style>

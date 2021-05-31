@@ -13,7 +13,7 @@
 			<view class="name left">
 				{{detail.article_title}}
 			</view>
-			<view class="right btnbox">
+			<view class="right btnbox" @click="fenxiang">
 				<!-- 需要判断是否已经收藏 -->
 				<image src="../../static/food/share.png" mode="" class="topimg"></image>
 				<view class="bottomtxt">
@@ -70,8 +70,23 @@
 					this.getList();
 				})
 			
-			},
-		},
+			 },
+			 fenxiang:function(){
+			 	uni.showModal({
+			 	    title: '提示',
+			 	    content: '请点击右上角分享',
+			 		showCancel:false,
+			 	    success: function (res) {
+			 	        if (res.confirm) {
+			 	            console.log('用户点击确定');
+			 	        } else if (res.cancel) {
+			 	            console.log('用户点击取消');
+			 	        }
+			 	    }
+			 	});
+			 }
+		}
+		
 		}
 </script>
 

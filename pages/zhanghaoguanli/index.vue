@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="box">
-			<u-cell-item  title="分享" @click="fapiaojilu" ></u-cell-item>
+			<u-cell-item  title="分享" @click="faxing" ></u-cell-item>
 			<u-cell-item  title="关于我们" @click="about" ></u-cell-item>
 			<u-cell-item  title="隐私政策" @click="privacy" ></u-cell-item>
 			<u-cell-item  title="用户协议" @click="agreement" :border-bottom="false"></u-cell-item>
@@ -41,6 +41,20 @@
 				uni.navigateTo({
 					url:"/pages/zhanghaoguanli/agreement"
 				})
+			},
+			faxing(){
+				uni.showModal({
+				    title: '提示',
+				    content: '请点击右上角分享',
+					showCancel:false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
 			}
 		}
 	}

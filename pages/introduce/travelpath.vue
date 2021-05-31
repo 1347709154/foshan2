@@ -24,7 +24,7 @@
 					<image v-else src="../../static/food/col.png" mode="" class="btnimg"></image>
 					<p>收藏</p>
 				</view>
-				<view class="right share">
+				<view class="right share" @click="fenxiang">
 					<image src="../../static/food/share.png" mode=""></image>
 					<p>分享</p>
 				</view>
@@ -73,7 +73,20 @@
 			onSwiperChange(e) {
 				this.current = e.detail.current;
 			},
-		
+		fenxiang:function(){
+			uni.showModal({
+			    title: '提示',
+			    content: '请点击右上角分享',
+				showCancel:false,
+			    success: function (res) {
+			        if (res.confirm) {
+			            console.log('用户点击确定');
+			        } else if (res.cancel) {
+			            console.log('用户点击取消');
+			        }
+			    }
+			});
+		}
 		}
 	}
 </script>

@@ -20,7 +20,9 @@
 					<p id="addr">{{detail.address}}</p>
 				</view>
 				<view class="right iconbox">
-					<a href="http://uri.amap.com/marker?position=106.70068384667965,26.57849601545628&name=花果园&coordinate=gaode&callnative=1">
+						<a href="http://uri.amap.com/marker?position=106.70068384667965,26.57849601545628&name=花果园&coordinate=gaode&callnative=1">
+					<!-- <a href='http://uri.amap.com/marker?position='+{{detail.longitude}},{{detail.latitude}}+'&name='+{{detail.address}}+'&coordinate=gaode&callnative=1'> -->
+						
 						<view class="left ditu">
 							<image src="../../static/scenic/loc.png" mode="" class="icons"></image>
 							<view class="btext">

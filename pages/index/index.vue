@@ -106,7 +106,11 @@
 				</view>
 			</view>
 		</view>
-
+		<!-- 拨打电话 -->
+		<view class="phone" @click="Phone()">
+			<image src="../../static/user/phone.png" mode="aspectFit"></image>
+			<view>客服热线</view>
+		</view>
 
 	</view>
 </template>
@@ -237,7 +241,12 @@
 				url: '/pages/article/index?article_id='+e
 			})
 			
-			}
+			},
+			Phone() {
+				uni.makePhoneCall({
+					phoneNumber: '19358666237' //仅为示例
+				});
+			},
 		}
 	}
 </script>
@@ -565,7 +574,32 @@
 		border-radius: 15rpx;
 		height: 150rpx;
 	}
+.phone {
+		position: fixed;
+		z-index: 99999;
+		top: 780rpx;
+		right: 32rpx;
+		width: 140rpx;
+		height: 170rpx;
+		/* border: 1rpx solid #80D981; */
+		border-radius: 60rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+	}
 
+	.phone>image {
+		width: 100rpx;
+		height: 80rpx;
+	}
+
+	.phone>view {
+		color: #80D981;
+		font-size: 28rpx;
+		margin-top: 10rpx;
+	}
 	/* 	.floor-top:first-of-type{
 		background-image: linear-gradient(#FCA67B,#FFFCFA);
 	}

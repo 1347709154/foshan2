@@ -32,7 +32,7 @@
 					</view>
 				</view>
 				<view class="order-list-bottom" v-if="item.pay_status==20">
-					<view class="gaiqian" @click="gaiqian">改签</view>
+					<!-- <view class="gaiqian" @click="gaiqian">改签</view> -->
 					<view class="shiyong" @click="GoPlay">去使用</view>
 				</view>
 				<view class="order-list-bottom" v-if="item.pay_status==10 && item.order_status.value==10">

@@ -3,7 +3,12 @@
 		<view class="top">
 			<!-- 搜索 -->
 			<view class="search" @click="search">
-				<u-search placeholder="请输入志愿者关键字"  shape="square" @search="search"></u-search>
+				<view class="search-inp">
+					<input placeholder="请输入志愿者关键字" confirm-type="search" @input="inputvalue"  @confirm="search"/>
+					<image src="../../static/scenic/search.png" mode=""  @click="search"></image>
+				</view>
+				<view class="" @click="search">搜索</view>
+				<!-- <u-search placeholder="请输入志愿者关键字" :show-action="true" action-text="搜索" shape="square" custom="search"  @search="search"></u-search> -->
 			</view>
 			<!-- 导航 -->
 			<view class="nav">
@@ -57,6 +62,7 @@
 		},
 		methods: {
 			getList: function() {
+				// console.log(this.key);
 				this.$requests('volunteer/index', {key:this.key}).then(res => {
 					this.info1 = res.info1;
 					this.info2 = res.info2;
@@ -64,9 +70,13 @@
 				})
 
 			},
-	
+			inputvalue:function(e){
+				
+				this.key =e.detail.value;
+			},
 			search(value) {
-			this.key = value;
+			// console.log(value);
+			// this.key = this.key;
 			this.btnnum=2;
 			this.getList()
 			},
@@ -109,12 +119,35 @@
 	.search {
 		width: 96%;
 		height: 80rpx;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background: #FFFFFF;
 	}
-
+	.search-inp{
+		width: 80%;
+		height: 60rpx;
+		background-color: rgb(242, 242, 242);
+		border-radius: 5px;
+		margin-right: 15rpx;
+		position: relative;
+	}
+	.search-inp>input{
+		width: 80%;
+		height: 60rpx;
+		line-height: 60rpx;
+		padding-left: 10rpx;
+		font-size: 28rpx;
+		
+	}
+	.search-inp>image{
+		width: 35rpx;
+		height: 35rpx;
+		position: relative;
+		left: 90%;
+		top: -45rpx;
+	}
 	/*  导航*/
 	.nav {
 		width: 96%;

@@ -39,7 +39,7 @@
 				</view>
 			</view>
 			<view class="bottom-r">
-				<view class="fenxiang">
+				<view class="fenxiang" @click="fenxiang">
 					<view style="margin-right: 5rpx;">分享</view>
 					<u-icon size="45" name="share"></u-icon>
 				</view>
@@ -95,6 +95,20 @@
 				uni.navigateTo({
 					url: "/pages/product/order?goods_id=" + this.goods_id
 				})
+			},
+			fenxiang:function(){
+				uni.showModal({
+				    title: '提示',
+				    content: '请点击右上角分享',
+					showCancel:false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
 			}
 		}
 	}

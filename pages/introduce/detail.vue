@@ -41,7 +41,7 @@
 							收藏
 						</view>
 					</view>
-					<view class="right">
+					<view class="right" @click="fenxiang">
 						<image src="../../static/food/share.png" mode="" class="btnimg"></image>
 						<view class="">
 							分享
@@ -131,6 +131,20 @@
 				uni.navigateTo({
 					url: "/pages/guide-pre/pre?type=scenic"
 				})
+			},
+			fenxiang:function(){
+				uni.showModal({
+				    title: '提示',
+				    content: '请点击右上角分享',
+					showCancel:false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
 			}
 		}
 	}
@@ -216,7 +230,7 @@
 		min-height: 400rpx;
 		height: auto;
 		margin-top: -90rpx;
-		z-index: 1000;
+		z-index: 10;
 		border-top-left-radius: 50rpx;
 		border-top-right-radius: 50rpx;
 		background: white;

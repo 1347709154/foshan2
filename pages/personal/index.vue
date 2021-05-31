@@ -22,7 +22,8 @@
 			</u-cell-item>
 			<u-field type="text" v-model="userInfo.autograph" label="签名" placeholder="请输入您的签名"></u-field>
 		</view>
-		<view class="bt" @click="submit">保存</view>
+		<u-button type="success" class="bt" @click="submit">保存</u-button>
+		<!-- <view class="bt" @click="submit">保存</view> -->
 	</view>
 </template>
 
@@ -83,8 +84,7 @@
 	}
 	.bt {
 
-		position: absolute;
-		bottom: 160rpx;
+		margin-top: 150rpx;
 		background: #07C160;
 		color: #ffffff;
 		text-align: center;

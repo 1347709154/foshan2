@@ -4,13 +4,25 @@
 			<view class="left input">
 				<u-input v-model="value" class="search left" height="62" input-align="center" placeholder="搜索"
 					confirm-type="search" @confirm="search" />
-				<image src="../../static/scenic/search.png" mode="" class="right srarchicon"></image>
+				<image src="../../static/scenic/search.png" mode="" class="right srarchicon" @click="search"></image>
 			</view>
-			<view class="right filtrate" @click="show = true">
+			<!-- <view class="right filtrate" @click="show = true">
 				<view class="left text">
 					筛选
 				</view>
 				<image src="../../static/scenic/loudou.png" mode="" class="right loudou"></image>
+			</view> -->
+		</view>
+		<!-- 排序 -->
+		<view class="sort">
+			<view class="sort-ul" @click="change('all')" :class="[btnnum=='all'?'active':'']">距离</view>
+			<view class="sort-ul" @click="change('sales')" :class="[btnnum=='sales'?'active':'']">销量</view>
+			<view class="sort-ul" @click="change('price')" :class="[btnnum=='price'?'active':'']">
+				<view>价格</view>
+				<view class="sort-ul-sort">
+					<u-icon size="18" name="arrow-up-fill" color="#000000"></u-icon>
+					<u-icon size="18" name="arrow-down-fill" color="#000000"></u-icon>
+				</view>
 			</view>
 		</view>
 		<u-popup v-model="show" mode="right" :safe-area-inset-bottom="true" width="50%">
@@ -61,6 +73,7 @@
 				value: '',
 				show: false,
 				list: {},
+				btnnum:'all',
 				keywods: [{
 						isflag: false,
 						title: '包邮'
@@ -99,9 +112,10 @@
 				
 				},fail(res) {
 					console.log(res);
-					_this.getList();
+					
 				}
 			})
+			_this.getList();
 		},
 		methods: {
 			getList: function() {
@@ -131,7 +145,12 @@
 				uni.navigateTo({
 					url: "./homeinfo?hotel_id="+e
 				})
-			}
+			},
+			//切换排序
+			change:function(e){
+				this.btnnum=e;
+				this.getList()
+			},
 		}
 	}
 </script>
@@ -148,26 +167,58 @@
 	}
 
 	.input {
-		width: 579rpx;
+		width: 97%;
 		height: 62rpx;
 		line-height: 62rpx;
 		background: #FFFFFF;
-		border-radius: 2rpx;
+		border-radius: 35rpx;
 		margin-left: 8rpx;
 
 		.search {
-			width: 500rpx;
-			text-align: center;
+			width: 100%;
+			text-align: left;
 		}
 	}
 
 	.srarchicon {
 		width: 34rpx;
 		height: 33rpx;
-		margin-top: 15rpx;
-		margin-right: 25rpx;
+		position: relative;
+		right: 35rpx;
+		top: -45rpx;
 	}
-
+	/* 排序 */
+	.sort{
+		background: #FFFFFF;
+		height: 120rpx;
+		width: 100%;
+		margin-top: 10rpx;
+		padding: 0rpx 32rpx;
+	}
+	.sort-ul{
+		float: left;
+		width: 33.3%;
+		line-height: 118rpx;
+		text-align: center;
+		font-size: 34rpx;
+		font-weight: 100;
+		color: #555555;
+		/* display: flex;
+		flex-direction: row; */
+	}
+	.active{
+		color: #FF0000;
+	}
+	.sort-ul-sort{
+		position: relative;
+		top: -80rpx;
+		left: 50rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-left: 8rpx;
+	}
 	.filtrate {
 		height: 62rpx;
 		width: 100rpx;
